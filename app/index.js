@@ -1,5 +1,5 @@
 // Edit main.scss to require the rest of scss.
-require('./assets/scss/main.scss');
+require('./scss/main.scss');
 
 // Require all JS in Angular
 var reqJS = require.context("./angular", true, /^(.*\.(js$))[^.]*$/igm);

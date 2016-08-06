@@ -60,7 +60,7 @@ switch (process.env.npm_lifecycle_event) {
     default:
         config = merge(
             common,
-            parts.setupClean(['build']),
+            // parts.setupClean(['build']),
             parts.setupJS(),
             parts.setupSASS(),
             parts.devServer({
