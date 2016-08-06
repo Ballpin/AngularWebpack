@@ -47,9 +47,14 @@ switch (process.env.npm_lifecycle_event) {
     case 'build':
         config = merge(
             common,
+            parts.setFreeVariable(
+                'process.env.NODE_ENV',
+                'production'
+            ),
             parts.setupClean(['build']),
             parts.setupJS(),
-            parts.setupSASS()
+            parts.setupSASS(),
+            parts.minify()
         );
         break;
     default:

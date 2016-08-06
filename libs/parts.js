@@ -1,4 +1,5 @@
 // Require Plugins
+const webpack = require('webpack');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -68,3 +69,29 @@ exports.setupJS = function () {
         }
     }
 };
+
+
+// Minify the build
+exports.minify = function() {
+    return {
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false
+                }
+            })
+        ]
+    };
+};
+
+
+// Set Node variables
+exports.setFreeVariable = function(key, value) {
+    const env = {};
+    env[key] = JSON.stringify(value);
+    return {
+        plugins: [
+            new webpack.DefinePlugin(env)
+        ]
+    };
+}
