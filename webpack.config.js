@@ -21,7 +21,7 @@ const common = {
     },
     output: {
         path: PATHS.build,
-        filename: '[name].js',
+        filename: 'js/[name].js',
 
         // Modify the name of the generated sourcemap file
         // You can use [file], [id], and [hash] replacements here.
@@ -60,14 +60,9 @@ switch (process.env.npm_lifecycle_event) {
     default:
         config = merge(
             common,
-            // parts.setupClean(['build']),
+            parts.setupClean(['build']),
             parts.setupJS(),
             parts.setupSASS(),
-            parts.devServer({
-                // Customize host/port here if needed
-                host: process.env.HOST,
-                port: process.env.PORT
-            }),
             parts.browserSync(PATHS.build)
         );
 }

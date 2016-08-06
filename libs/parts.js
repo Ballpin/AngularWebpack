@@ -13,18 +13,16 @@ exports.browserSync = function (paths) {
                 // ./public directory is being served
 
                 // Use this server if you want to go without webpack-dev-server
-                // server: {baseDir: [paths]},
+                server: {baseDir: [paths]},
                 host: 'localhost',
                 port: 3000,
 
-                open: false,
+                open: false
 
                 // proxy the Webpack Dev Server endpoint
                 // (which should be serving on http://localhost:3100/)
                 // through BrowserSync
-                proxy: 'http://localhost:8080/'
-            }, {
-                reload: false
+                // proxy: 'http://localhost:8080/'
             })
         ]
     }
@@ -32,7 +30,7 @@ exports.browserSync = function (paths) {
 
 // Export SASS & CSS & Style Settings
 exports.setupSASS = function () {
-    var extractCSS = new ExtractTextPlugin('assets/css/[name].css');
+    var extractCSS = new ExtractTextPlugin('css/[name].css');
     return {
         devtool: "source-map", // or "inline-source-map"
         module: {
