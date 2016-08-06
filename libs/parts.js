@@ -11,10 +11,14 @@ exports.browserSync = function (paths) {
             new BrowserSyncPlugin({
                 // browse to http://localhost:3000/ during development,
                 // ./public directory is being served
+
+                // Use this server if you want to go without webpack-dev-server
+                // server: {baseDir: [paths]},
                 host: 'localhost',
                 port: 3000,
-                server: {baseDir: [paths]},
-                open:false
+
+                open: false,
+                proxy: 'http://localhost:8080/'
             })
         ]
     }
@@ -29,7 +33,7 @@ exports.setupSASS = function () {
             loaders: [
                 {
                     test: /\.scss$/i,
-                    loader: extractCSS.extract(['css?sourceMap','sass?sourceMap'])
+                    loader: extractCSS.extract(['css?sourceMap', 'sass?sourceMap'])
                 }
             ]
         },
@@ -72,7 +76,7 @@ exports.setupJS = function () {
 
 
 // Minify the build
-exports.minify = function() {
+exports.minify = function () {
     return {
         plugins: [
             new webpack.optimize.UglifyJsPlugin({
@@ -86,7 +90,7 @@ exports.minify = function() {
 
 
 // Set Node variables
-exports.setFreeVariable = function(key, value) {
+exports.setFreeVariable = function (key, value) {
     const env = {};
     env[key] = JSON.stringify(value);
     return {
@@ -94,4 +98,40 @@ exports.setFreeVariable = function(key, value) {
             new webpack.DefinePlugin(env)
         ]
     };
-}
+};
+
+exports.devServer = function (options) {
+    return {
+        devServer: {
+            // Enable history API fallback so HTML5 History API b
+            // routing works. This is a good default that will co
+            // in handy in more complicated setups.
+            historyApiFallback: true,
+
+            // Unlike the cli flag, this doesn't set
+            // HotModuleReplacementPlugin!
+            hot: true,
+            inline: true,
+
+            // Display only errors to reduce the amount of output
+            stats: 'errors-only',
+
+            // Parse host and port from env to allow customization.
+            //
+            // If you use Vagrant or Cloud9, set
+            // host: options.host || '0.0.0.0';
+            //
+            // 0.0.0.0 is available to all network devices
+            // unlike default `localhost`.
+            host: options.host, // Defaults to `localhost`
+            port: options.port // Defaults to 8080
+        },
+        plugins: [
+            // Enable multi-pass compilation for enhanced performance
+            // in larger projects. Good default.
+            new webpack.HotModuleReplacementPlugin({
+                multiStep: true
+            })
+        ]
+    };
+};

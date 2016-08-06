@@ -63,6 +63,11 @@ switch (process.env.npm_lifecycle_event) {
             parts.setupClean(['build']),
             parts.setupJS(),
             parts.setupSASS(),
+            parts.devServer({
+                // Customize host/port here if needed
+                host: process.env.HOST,
+                port: process.env.PORT
+            }),
             parts.browserSync(PATHS.build)
         );
 }
