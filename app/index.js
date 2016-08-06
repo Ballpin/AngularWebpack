@@ -1,1 +1,3 @@
-require('angular');
+require('./assets/scss/main.scss');
+
+

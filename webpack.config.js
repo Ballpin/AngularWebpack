@@ -38,6 +38,7 @@ switch (process.env.npm_lifecycle_event) {
         config = merge(
             common,
             parts.setupClean(['build']),
+            parts.setupJS(),
             parts.setupSASS()
         );
         break;
@@ -45,6 +46,7 @@ switch (process.env.npm_lifecycle_event) {
         config = merge(
             common,
             parts.setupClean(['build']),
+            parts.setupJS(),
             parts.setupSASS(),
             parts.browserSync(PATHS.build)
         );
