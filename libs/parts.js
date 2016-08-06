@@ -42,7 +42,7 @@ exports.setupClean = function (path) {
     return {
         plugins: [
             new CleanWebpackPlugin(path, {
-                root: '/',
+                root: __dirname,
                 verbose: true,
                 dry: false
             })

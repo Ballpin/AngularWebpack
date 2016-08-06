@@ -37,12 +37,14 @@ switch (process.env.npm_lifecycle_event) {
     case 'build':
         config = merge(
             common,
+            parts.setupClean(['build']),
             parts.setupSASS()
         );
         break;
     default:
         config = merge(
             common,
+            parts.setupClean(['build']),
             parts.setupSASS(),
             parts.browserSync(PATHS.build)
         );
