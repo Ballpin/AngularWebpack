@@ -23,11 +23,12 @@ exports.browserSync = function (paths) {
 exports.setupSASS = function () {
     var extractCSS = new ExtractTextPlugin('assets/css/[name].css');
     return {
+        devtool: "source-map", // or "inline-source-map"
         module: {
             loaders: [
                 {
                     test: /\.scss$/i,
-                    loader: extractCSS.extract(['css','sass'])
+                    loader: extractCSS.extract(['css?sourceMap','sass?sourceMap'])
                 }
             ]
         },
@@ -42,7 +43,7 @@ exports.setupClean = function (path) {
     return {
         plugins: [
             new CleanWebpackPlugin(path, {
-                root: __dirname,
+                root: process.cwd(),
                 verbose: true,
                 dry: false
             })
